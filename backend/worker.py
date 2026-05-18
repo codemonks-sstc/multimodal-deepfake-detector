@@ -3,7 +3,7 @@ backend/worker.py — Celery worker for async / batch deepfake analysis.
 
 Usage:
     # Start worker
-    celery -A backend.worker worker --loglevel=info --concurrency=2
+    celery -A backend.worker worker --loglevel=info --concurrency=1
 
     # Submit batch job from Python
     from backend.worker import analyze_video_task
