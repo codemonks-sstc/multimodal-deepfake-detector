@@ -39,11 +39,7 @@ audioread==3.1.0
 soxr==0.3.7
 
 # ── Speech Recognition ────────────────────────────────────────────────────────
-faster-whisper==1.0.3
-ctranslate2==4.4.0
-openai-whisper==20231117
-sentencepiece==0.2.0
-tiktoken==0.7.0
+
 
 # ── Inference Runtime ─────────────────────────────────────────────────────────
 onnxruntime-gpu==1.18.0
