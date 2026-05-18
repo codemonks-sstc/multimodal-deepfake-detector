@@ -11,6 +11,19 @@ Usage:
     print(result.get(timeout=300))
 """
 
+_pipeline = None
+
+def get_pipeline_lazy():
+    global _pipeline
+
+    if _pipeline is None:
+        from backend.inference_pipeline import get_pipeline
+
+        logger.info("Loading inference pipeline...")
+        _pipeline = get_pipeline()
+
+    return _pipeline
+
 from celery import Celery
 from loguru import logger
 from pathlib import Path
@@ -47,7 +60,7 @@ def analyze_video_task(self, video_path: str) -> dict:
     self.update_state(state="PROGRESS", meta={"step": "loading pipeline"})
 
     try:
-        pipeline = get_pipeline()
+        pipeline = get_pipeline_lazy()
         self.update_state(state="PROGRESS", meta={"step": "running inference"})
         result = pipeline.run(video_path)
         result_dict = asdict(result)
@@ -64,7 +77,7 @@ def batch_analyze_task(video_paths: list[str]) -> list[dict]:
     from backend.inference_pipeline import get_pipeline
     from dataclasses import asdict
 
-    pipeline = get_pipeline()
+    pipeline = get_pipeline_lazy()
     results = []
     for path in video_paths:
         try:
