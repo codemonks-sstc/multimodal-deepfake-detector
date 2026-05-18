@@ -26,6 +26,7 @@ from loguru import logger
 from backend.config import settings
 from backend.inference_pipeline import get_pipeline, AnalysisResult
 
+
 # ── Logging setup ─────────────────────────────────────────────────────────────
 logger.add(
     settings.LOG_DIR / "api.log",
@@ -44,7 +45,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS + ["*"],  # restrict in production
+    allow_origins=[
+        "http://localhost:5173",
+        "https://multimodal-deepfake-detector.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
