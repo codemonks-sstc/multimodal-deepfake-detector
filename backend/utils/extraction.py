@@ -13,10 +13,11 @@ from typing import List, Tuple, Optional
 import cv2
 import numpy as np
 import librosa
-from faster_whisper import WhisperModel
 from loguru import logger
 
 from backend.config import settings
+
+WHISPER_AVAILABLE = False
 
 
 # ─── Frame Extraction ─────────────────────────────────────────────────────────
